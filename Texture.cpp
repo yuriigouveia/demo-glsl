@@ -59,6 +59,7 @@ bool Texture::Load(const std::string& name)
 void Texture::Destroy()
 {
 	glDeleteTextures(1, &m_nHandle);
+	m_nHandle = 0;
 }
 
 

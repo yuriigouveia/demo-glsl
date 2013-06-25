@@ -5,16 +5,21 @@
 #include <iostream>
 #include <GL/glew.h>
 #include "Mathlib.h"
+#include "ResourceBase.h"
 
 // -------------------------------
 // Shader (vertex & pixel)
 // -------------------------------
 
-class Shader
+class Shader : public ResourceBase
 {
 public:
 	static bool Init();
-	bool Load(const std::string& name, const std::string& extensions="");
+	virtual bool Load(const std::string& name);
+	virtual void Destroy();
+
+	virtual bool DoesSupportReloading()	const {return true;}
+
 	bool Activate();
 	static void Deactivate();
 
