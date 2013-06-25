@@ -4,7 +4,7 @@
 
 void ResourceManager::Destroy()
 {
-	for(std::map<std::string, void*>::iterator it = m_ResDB.begin(); it != m_ResDB.end(); it++) {
+	for(ResDB::iterator it = m_ResDB.begin(); it != m_ResDB.end(); it++) {
 		delete (*it).second;
 		(*it).second = NULL;
 	}
@@ -18,28 +18,24 @@ void* ResourceManager::LoadResource(RES_TYPE type, const std::string& name)
 	if(m_ResDB.find(name) != m_ResDB.end())
 		return m_ResDB.find(name)->second;
 
-	std::cerr << "Loading resource " << name << std::endl;
-
 	// on charge la ressource
-	void* ptr = NULL;
+	ResourceBase* ptr = NULL;
 	switch(type) {
 	case TEXTURE2D: {
 		ptr = new Texture2D();
-		((Texture2D*)ptr)->Load(name);
 		break;}
 	case TEXTURECUBEMAP: {
 		ptr = new TextureCubemap();
-		((TextureCubemap*)ptr)->Load(name);
 		break;}
 	case SHADER: {
 		ptr = new Shader();
-		((Shader*)ptr)->Load(name);
 		break;}
 	case MESH: {
 		ptr = new Mesh();
-		((Mesh*)ptr)->Load(name);
 		break;}
 	}
+
+	ptr->Load(name);
 
 	if(!ptr) return NULL;
 
@@ -47,7 +43,7 @@ void* ResourceManager::LoadResource(RES_TYPE type, const std::string& name)
 	return ptr;
 }
 
-void* ResourceManager::NewResource(void* data, const std::string& name)
+void* ResourceManager::NewResource(ResourceBase* data, const std::string& name)
 {
 	if(!data) return NULL;
 
@@ -57,6 +53,17 @@ void* ResourceManager::NewResource(void* data, const std::string& name)
 
 	m_ResDB[name] = data;
 	return data;
+}
+
+void ResourceManager::Reload()
+{
+	for(ResDB::iterator it = m_ResDB.begin(); it != m_ResDB.end(); it++) {
+		if((*it).second->DoesSupportReloading())
+		{
+			(*it).second->Destroy();
+			(*it).second->Load((*it).first);
+		}
+	}
 }
 
 

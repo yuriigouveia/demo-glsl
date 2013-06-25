@@ -19,6 +19,7 @@ Mesh::Mesh()
 
 bool Mesh::Load(const std::string& name)
 {
+	std::cerr << "Loading mesh " << name << std::endl;
 	m_pVBO = new VertexBufferObject();
 
 	bool ret = false;

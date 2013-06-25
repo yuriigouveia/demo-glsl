@@ -3,6 +3,7 @@
 #include "../Spline3D/SplineGL.h"
 #include "../Camera.h"
 #include "../VarManager.h"
+#include "../ResourceManager.h"
 #include <fstream>
 #include <sstream>
 
@@ -171,7 +172,16 @@ bool SceneBase::SaveCameraTrajInFile(const std::string& name)
 
 
 void SceneBase::Keyboard(bool special, unsigned char key)
-{/*
+{
+	
+	if(special)
+	{
+		if(key == GLUT_KEY_F2)
+		{
+			ResourceManager::getInstance().Reload();
+		}
+	}
+	/*
 	if(!special) {
 		switch(key) {
 		case 'e':

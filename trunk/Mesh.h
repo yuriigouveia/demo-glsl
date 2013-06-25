@@ -7,6 +7,7 @@
 #include "Mathlib.h"
 #include <vector>
 #include "BoundingBox.h"
+#include "ResourceBase.h"
 
 class VertexBufferObject;
 
@@ -15,11 +16,11 @@ class VertexBufferObject;
 // chargement à partir de modèles .obj
 // -------------------------------
 
-class Mesh
+class Mesh : public ResourceBase
 {
 public:
-	bool Load(const std::string& name);
-	void Destroy();
+	virtual bool Load(const std::string& name);
+	virtual void Destroy();
 
 	void Draw();
 	void Draw(GLuint group);

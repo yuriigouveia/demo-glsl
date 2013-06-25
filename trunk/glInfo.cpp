@@ -165,3 +165,17 @@ void glInfo::PrintInfo()
 
     cout << ss.str() << endl;
 }
+
+
+//#define CHECK_ERRORS
+
+void glInfo::CheckErrors()
+{
+#ifdef CHECK_ERRORS
+	GLenum err = glGetError();
+	if(err != GL_NO_ERROR){
+		std::cerr << "OpenGL ERROR:" << std::endl;
+		std::cerr << gluErrorString(err) << std::endl;
+	}
+#endif
+}

@@ -161,8 +161,11 @@ bool Shader::Init()
 }
 
 
-bool Shader::Load(const std::string& name, const std::string& extensions)
+bool Shader::Load(const std::string& name)
 {
+	std::cerr << "Loading shader " << name << std::endl;
+	const std::string extensions = "";
+
 	if(!s_bInitialized)	
 		if(!Init())
 			return false;
@@ -211,6 +214,13 @@ bool Shader::Load(const std::string& name, const std::string& extensions)
 
 
 	return true;
+}
+
+void Shader::Destroy()
+{
+	Deactivate();
+	glDeleteObjectARB(m_nProgram);
+	m_nProgram = 0;
 }
 
 

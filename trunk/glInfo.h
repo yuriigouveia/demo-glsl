@@ -51,6 +51,8 @@ public:
     bool ExtractInfo();
     void PrintInfo();
 	bool isExtensionSupported(const std::string& ext);
+
+	void CheckErrors();
 SINGLETON_END()
 
 #endif
