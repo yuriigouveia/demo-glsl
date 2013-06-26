@@ -266,7 +266,7 @@ float ShadowMapping(vec4 vVertexFromLightView, out vec3 vPixPosInDepthMap)
 	vPixPosInDepthMap = (vPixPosInDepthMap + 1.0) * 0.5;					// de l'intervale [-1 1] à [0 1]
 	
 	
-	vec4 vDepthMapColor = texture2D(texDepthMapFromLight, vPixPosInDepthMap);
+	vec4 vDepthMapColor = texture2D(texDepthMapFromLight, vPixPosInDepthMap.st);
 
 	if((vDepthMapColor.z+Z_TEST_SIGMA) < vPixPosInDepthMap.z)
 	{
@@ -279,7 +279,7 @@ float ShadowMapping(vec4 vVertexFromLightView, out vec3 vPixPosInDepthMap)
 			{
 				vec2 offset = tOffset[i] / (float(depth_map_size));
 				// Couleur du pixel sur la depth map
-				vec4 vDepthMapColor = texture2D(texDepthMapFromLight, vPixPosInDepthMap + vec3(offset.s, offset.t, 0.0));
+				vec4 vDepthMapColor = texture2D(texDepthMapFromLight, vPixPosInDepthMap.st + offset);
 		
 				if((vDepthMapColor.z+Z_TEST_SIGMA) < vPixPosInDepthMap.z) {
 					fShadow += 0.0;
