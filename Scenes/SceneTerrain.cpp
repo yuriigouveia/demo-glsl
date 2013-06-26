@@ -71,25 +71,29 @@ void SceneTerrain::Init()
 	m_pTerrain->ComputeBoundingBox();
 	img.Destroy();
 
-	vec3 fogColor(0.7f, 0.7f, 0.9f);
-	m_pShaderTerrain->Activate();
-		m_pShaderTerrain->Uniform("bbox_min", m_pTerrain->getBoundingBox().min);
-		m_pShaderTerrain->Uniform("bbox_max", m_pTerrain->getBoundingBox().max);
-		m_pShaderTerrain->Uniform("fog_color", fogColor);
-	m_pShaderTerrain->Deactivate();
-
-	m_pShaderWater->Activate();
-		m_pShaderWater->Uniform("bbox_min", m_pTerrain->getBoundingBox().min);
-		m_pShaderWater->Uniform("bbox_max", m_pTerrain->getBoundingBox().max);
-		m_pShaderWater->Uniform("fog_color", fogColor);
-	m_pShaderWater->Deactivate();
-
+	Reload(); // set shader constants
 
 	m_fboWaterReflection.Create(FrameBufferObject::FBO_2D_COLOR, 512, 512);
 	m_fboDepthMapFromLight[0].Create(FrameBufferObject::FBO_2D_DEPTH, 2048, 2048);
 	m_fboDepthMapFromLight[1].Create(FrameBufferObject::FBO_2D_DEPTH, 2048, 2048);
 
 	LoadCameraTrajFromFile("terrain.txt");
+}
+
+void SceneTerrain::Reload()
+{
+	vec3 fogColor(0.7f, 0.7f, 0.9f);
+	m_pShaderTerrain->Activate();
+	m_pShaderTerrain->Uniform("bbox_min", m_pTerrain->getBoundingBox().min);
+	m_pShaderTerrain->Uniform("bbox_max", m_pTerrain->getBoundingBox().max);
+	m_pShaderTerrain->Uniform("fog_color", fogColor);
+	m_pShaderTerrain->Deactivate();
+
+	m_pShaderWater->Activate();
+	m_pShaderWater->Uniform("bbox_min", m_pTerrain->getBoundingBox().min);
+	m_pShaderWater->Uniform("bbox_max", m_pTerrain->getBoundingBox().max);
+	m_pShaderWater->Uniform("fog_color", fogColor);
+	m_pShaderWater->Deactivate();
 }
 
 void SceneTerrain::Destroy()
@@ -103,6 +107,7 @@ void SceneTerrain::Destroy()
 
 void SceneTerrain::Idle(float fElapsedTime)
 {
+	SceneBase::Idle(fElapsedTime);
 	Inputs& inputs = Inputs::getInstance();
 
 	if( inputs.Key('z') )			m_vSunAngle.y += 0.01f;

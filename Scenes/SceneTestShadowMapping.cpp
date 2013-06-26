@@ -269,8 +269,6 @@ void SceneTestShadowMapping::Render()
 void SceneTestShadowMapping::RenderScene(bool bDepthMap)
 {
 	ResourceManager& res = ResourceManager::getInstance();
-
-	bDepthMap = false;
 	
 	if( !bDepthMap ) {
 		m_fboDepthMapFromLight.Bind(2);

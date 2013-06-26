@@ -27,8 +27,8 @@ uniform vec3 bbox_max;
 
 // SHADOW MAPPING //
 uniform int depth_map_size;
-uniform sampler2DShadow texDepthMapFromLight0;
-uniform sampler2DShadow texDepthMapFromLight1;
+uniform sampler2D texDepthMapFromLight0;
+uniform sampler2D texDepthMapFromLight1;
 #define Z_TEST_SIGMA 0.0001
 ////////////////////
 
@@ -181,8 +181,8 @@ float ShadowMapping(vec4 vVertexFromLightView)
 	if(ok)
 	{
 		vec4 vDepthMapColor = vec4(0.0, 0.0, 0.0, 1.0);
-		if(id == 0)	vDepthMapColor = shadow2D(texDepthMapFromLight0, vPixPosInDepthMap);
-		else		vDepthMapColor = shadow2D(texDepthMapFromLight1, vPixPosInDepthMap);
+		if(id == 0)	vDepthMapColor = texture2D(texDepthMapFromLight0, vPixPosInDepthMap);
+		else		vDepthMapColor = texture2D(texDepthMapFromLight1, vPixPosInDepthMap);
 		
 
 		if((vDepthMapColor.z+Z_TEST_SIGMA) < vPixPosInDepthMap.z)
@@ -200,7 +200,7 @@ float ShadowMapping(vec4 vVertexFromLightView)
 				{
 					vec2 offset = tOffset[i] / (float(depth_map_size));
 					// Couleur du pixel sur la depth map
-					vec4 vDepthMapColor = shadow2D(texDepthMapFromLight0, vPixPosInDepthMap + vec3(offset.s, offset.t, 0.0));
+					vec4 vDepthMapColor = texture2D(texDepthMapFromLight0, vPixPosInDepthMap + vec3(offset.s, offset.t, 0.0));
 			
 					if((vDepthMapColor.z+Z_TEST_SIGMA) < vPixPosInDepthMap.z) {
 						fShadow += 0.0;

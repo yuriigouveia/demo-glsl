@@ -179,6 +179,7 @@ void SceneBase::Keyboard(bool special, unsigned char key)
 		if(key == GLUT_KEY_F2)
 		{
 			ResourceManager::getInstance().Reload();
+			Reload();
 		}
 	}
 	/*
