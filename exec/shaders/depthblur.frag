@@ -4,34 +4,35 @@ uniform sampler2D texScreen, texDepth;
 
 uniform int screenWidth;
 uniform int screenHeight;
-
+/*
+// static array initialisation doesn't compile on ATI gpu
 float mask11_2[] = { 1.0/11.0, 1.0/11.0, 1.0/11.0, 1.0/11.0, 1.0/11.0, 1.0/11.0, 1.0/11.0, 1.0/11.0, 1.0/11.0, 1.0/11.0, 1.0/11.0};
 float mask5_2[] = { 1.0/5.0, 1.0/5.0, 1.0/5.0, 1.0/5.0, 1.0/5.0};
 float mask3_2[] = { 1.0/3.0, 1.0/3.0, 1.0/3.0};
-
+*/
 uniform bool bHorizontal;
 
 
-vec4 convolH(float tab[], int size)
+vec4 convolH(float value, int size)
 {
 	float stepX = 1.0/screenWidth;
 	vec4 color = 0;
 	int k = (size/2);
-	int ind = 0;
+	//int ind = 0;
 	for(int i=-k; i<=k; i++)
-			color += tab[ind++] * texture2D(texScreen, gl_TexCoord[0].st + vec2(i*stepX, 0));
+			color += value * texture2D(texScreen, gl_TexCoord[0].st + vec2(i*stepX, 0));
 				
 			return color;
 }
 
-vec4 convolV(float tab[], int size)
+vec4 convolV(float value, int size)
 {
 	float stepY = 1.0/screenHeight;
 	vec4 color = 0;
 	int k = (size/2);
-	int ind = 0;
+	//int ind = 0;
 	for(int i=-k; i<=k; i++)
-			color += tab[ind++] * texture2D(texScreen, gl_TexCoord[0].st + vec2(0, i*stepY));
+			color += value * texture2D(texScreen, gl_TexCoord[0].st + vec2(0, i*stepY));
 				
 			return color;
 }
@@ -44,11 +45,11 @@ vec4 Pdc(vec4 color)
 		vec4 color;
 		if(bHorizontal)
 		{
-			color = convolH(mask11_2,11);
+			color = convolH(1.0/11.0,11);
 		}
 		else
 		{
-			color = convolV(mask11_2,11);
+			color = convolV(1.0/11.0,11);
 		}
 		
 		return color;
@@ -58,11 +59,11 @@ vec4 Pdc(vec4 color)
 		vec4 color;
 		if(bHorizontal)
 		{
-			color = convolH(mask5_2,5);
+			color = convolH(1.0/5.0,5);
 		}
 		else
 		{
-			color = convolV(mask5_2,5);
+			color = convolV(1.0/5.0,5);
 		}
 		
 		return color;
@@ -72,11 +73,11 @@ vec4 Pdc(vec4 color)
 		vec4 color;
 		if(bHorizontal)
 		{
-			color = convolH(mask3_2,3);
+			color = convolH(1.0/3.0,3);
 		}
 		else
 		{
-			color = convolV(mask3_2,3);
+			color = convolV(1.0/3.0,3);
 		}
 		
 		return color;
