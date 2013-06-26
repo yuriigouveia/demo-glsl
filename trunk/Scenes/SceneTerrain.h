@@ -16,6 +16,7 @@ class SceneTerrain : public SceneBase
 {
 public:
 	virtual void Init();
+	virtual void Reload();
 	virtual void Destroy();
 	virtual void PreRender();
 	virtual void Render();

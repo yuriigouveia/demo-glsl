@@ -20,6 +20,9 @@ public:
 	// Initialisation des données propres à la scène
 	virtual void Init() {}
 
+	// Rechargement des shaders
+	virtual void Reload() {}
+
 	// Destruction des données propres à la scène
 	virtual void Destroy();
 
