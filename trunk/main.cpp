@@ -72,15 +72,7 @@ static void displayGL(void)
 
 	glutSwapBuffers();
 
-
-#ifdef CHECK_ERRORS
-	err = glGetError();
-	if(err!=GL_NO_ERROR){
-	std::cerr << "Erreur GL :" << std::endl;
-	std::cerr << gluErrorString(err) << std::endl;
-	}
-#endif
-
+	glInfo::getInstance().CheckErrors();
 }
 
 
@@ -195,14 +187,7 @@ static void initGL(int argc,
 
 	Camera::getInstance().setType(Camera::DRIVEN);
 
-#ifdef CHECK_ERRORS
-  err = glGetError();
-  if(err!=GL_NO_ERROR){
-    std::cerr << "Erreur GL :" << std::endl;
-    std::cerr << gluErrorString(err) << std::endl;
-  }
-#endif
-
+	glInfo::getInstance().CheckErrors();
 }
 
 
