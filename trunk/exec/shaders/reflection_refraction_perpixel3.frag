@@ -39,7 +39,7 @@ void main(void)
 
 
 	if(enable_bumpmapping) {
-		normal_final_view += bumpmapping_factor*(2.0 * texture2D(texNormalMap, gl_TexCoord[0].st) - 1.0);	// DOT3 bump mapping
+		normal_final_view += bumpmapping_factor*(2.0 * texture2D(texNormalMap, gl_TexCoord[0].st).rgb - 1.0);	// DOT3 bump mapping
 //		vec3 bump = bumpmapping_factor*(2.0 * texture2D(texNormalMap, gl_TexCoord[0].st) - 1.0);
 	
 	}	

@@ -26,7 +26,8 @@ vec4 Bloom(vec4 color)
 
 vec4 LevelOfGrey(vec4 colorIn)
 {
-	return colorIn.r * 0.299 + colorIn.g * 0.587 + colorIn.b * 0.114;
+	float grey = colorIn.r * 0.299 + colorIn.g * 0.587 + colorIn.b * 0.114;
+	return vec4(grey, grey, grey, grey);
 }
 
 vec4 NoiseEffect(vec4 colorIn)

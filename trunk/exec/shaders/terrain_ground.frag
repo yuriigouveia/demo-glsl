@@ -181,8 +181,8 @@ float ShadowMapping(vec4 vVertexFromLightView)
 	if(ok)
 	{
 		vec4 vDepthMapColor = vec4(0.0, 0.0, 0.0, 1.0);
-		if(id == 0)	vDepthMapColor = texture2D(texDepthMapFromLight0, vPixPosInDepthMap);
-		else		vDepthMapColor = texture2D(texDepthMapFromLight1, vPixPosInDepthMap);
+		if(id == 0)	vDepthMapColor = texture2D(texDepthMapFromLight0, vPixPosInDepthMap.st);
+		else		vDepthMapColor = texture2D(texDepthMapFromLight1, vPixPosInDepthMap.st);
 		
 
 		if((vDepthMapColor.z+Z_TEST_SIGMA) < vPixPosInDepthMap.z)
