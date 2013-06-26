@@ -71,8 +71,6 @@ static void displayGL(void)
 	
 
 	glutSwapBuffers();
-
-	glInfo::getInstance().CheckErrors();
 }
 
 
