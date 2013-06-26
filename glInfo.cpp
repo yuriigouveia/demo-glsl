@@ -167,7 +167,7 @@ void glInfo::PrintInfo()
 }
 
 
-//#define CHECK_ERRORS
+#define CHECK_ERRORS
 
 void glInfo::CheckErrors()
 {
