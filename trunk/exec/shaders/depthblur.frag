@@ -16,7 +16,7 @@ uniform bool bHorizontal;
 vec4 convolH(float value, int size)
 {
 	float stepX = 1.0/screenWidth;
-	vec4 color = 0;
+	vec4 color = vec4(0.0f, 0.0f, 0.0f, 0.0f);
 	int k = (size/2);
 	//int ind = 0;
 	for(int i=-k; i<=k; i++)
@@ -28,7 +28,7 @@ vec4 convolH(float value, int size)
 vec4 convolV(float value, int size)
 {
 	float stepY = 1.0/screenHeight;
-	vec4 color = 0;
+	vec4 color = vec4(0.0f, 0.0f, 0.0f, 0.0f);
 	int k = (size/2);
 	//int ind = 0;
 	for(int i=-k; i<=k; i++)
